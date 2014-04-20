@@ -202,12 +202,18 @@ CREATE  TABLE IF NOT EXISTS `ygc`.`comment` (
   `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
   `photo` VARCHAR(500) NULL ,
   `post_idpost` INT NOT NULL ,
-  `post_user_iduser` INT NOT NULL ,
+  `user_iduser` INT NOT NULL ,
   PRIMARY KEY (`idcomment`) ,
-  INDEX `fk_comment_post1_idx` (`post_idpost` ASC, `post_user_iduser` ASC) ,
+  INDEX `fk_comment_post1_idx` (`post_idpost` ASC) ,
+  INDEX `fk_comment_user1_idx` (`user_iduser` ASC) ,
   CONSTRAINT `fk_comment_post1`
-    FOREIGN KEY (`post_idpost` , `post_user_iduser` )
-    REFERENCES `ygc`.`post` (`idpost` , `user_iduser` )
+    FOREIGN KEY (`post_idpost` )
+    REFERENCES `ygc`.`post` (`idpost` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comment_user1`
+    FOREIGN KEY (`user_iduser` )
+    REFERENCES `ygc`.`user` (`iduser` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
